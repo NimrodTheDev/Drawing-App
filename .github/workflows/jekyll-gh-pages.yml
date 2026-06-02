@@ -1,4 +1,4 @@
-name: Deploy Web App
+name: Deploy Leptos App
 
 on:
   push:
@@ -22,26 +22,44 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # -------------------------
+      # Rust setup
+      # -------------------------
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-
-      - name: Install Trunk
-        run: cargo install trunk
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
 
-      - name: Install Node (for Tailwind if needed)
+      # -------------------------
+      # Node setup (Tailwind v4)
+      # -------------------------
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install Node deps
         run: npm install
 
-      - name: Build with Trunk
-        run: trunk build --release
+      # -------------------------
+      # Tailwind v4 build (IMPORTANT)
+      # -------------------------
+      - name: Build CSS (Tailwind v4)
+        run: npm run build:css
 
+      # -------------------------
+      # Trunk setup
+      # -------------------------
+      - name: Install Trunk
+        run: cargo install trunk
+
+      - name: Build WASM with Trunk
+        run: trunk build --release --public-url /Drawing-App/
+
+      # -------------------------
+      # Upload to Pages
+      # -------------------------
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
