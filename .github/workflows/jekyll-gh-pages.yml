@@ -22,44 +22,32 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # -------------------------
-      # Rust setup
-      # -------------------------
+      # Rust
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Add WASM target
+      - name: Add wasm target
         run: rustup target add wasm32-unknown-unknown
 
-      # -------------------------
-      # Node setup (Tailwind v4)
-      # -------------------------
+      # Node (ONLY for Tailwind binary availability)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Node deps
+      # IMPORTANT: install Tailwind v4 CLI so Trunk uses it
+      - name: Install dependencies
         run: npm install
 
-      # -------------------------
-      # Tailwind v4 build (IMPORTANT)
-      # -------------------------
-      - name: Build CSS (Tailwind v4)
-        run: npm run build:css
-
-      # -------------------------
-      # Trunk setup
-      # -------------------------
+      # Trunk install
       - name: Install Trunk
         run: cargo install trunk
 
-      - name: Build WASM with Trunk
+      # Build EVERYTHING with Trunk (Rust + Tailwind v4)
+      - name: Build with Trunk
         run: trunk build --release --public-url /Drawing-App/
 
-      # -------------------------
-      # Upload to Pages
-      # -------------------------
+      # Upload Pages artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -74,6 +62,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
