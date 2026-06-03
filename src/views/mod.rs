@@ -363,7 +363,7 @@ pub fn CreativeHub() -> impl IntoView {
 
                 // Action buttons
                 <div class="flex gap-3 mb-10">
-                    <A  href="/art" attr:class="flex items-center gap-2 px-5 h-11 rounded-xl bg-pink-500
+                    <A  href="/Drawing-App/art" attr:class="flex items-center gap-2 px-5 h-11 rounded-xl bg-pink-500
                                    hover:bg-pink-600 active:scale-[.98] text-white text-sm
                                    font-medium transition-all duration-150 shadow-sm">
                         <IconPlus />

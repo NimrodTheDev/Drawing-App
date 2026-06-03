@@ -4,6 +4,7 @@ pub mod layout;
 pub mod art_engine;
 
 use leptos::*;
+use leptos::html::base;
 use leptos::prelude::*;
 use leptos_router::*;
 use leptos_router::components::*;
@@ -18,14 +19,15 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    
+
     view! {
-        <Router>
+        <Router >
             <layout::theme_context::ThemeContext>
                 <NavBar/>
-                <Routes fallback=||"No view">
+                <Routes  fallback=||"No view">
                     <Route path=path!("/") view=CreativeHub/>
-                    <Route path=path!("/art") view=move || view!{<layout::art_layout::ArtLayout>
+                    <Route path=path!("/Drawing-App/") view=CreativeHub/>
+                    <Route path=path!("/Drawing-App/art") view=move || view!{<layout::art_layout::ArtLayout>
                 <draw::DrawView/>
             </layout::art_layout::ArtLayout>}/>
                 </Routes>
