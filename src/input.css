@@ -88,4 +88,20 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+@import "tailwindcss";
+
+@theme {
+    /* Colors — replaces theme.extend.colors */
+    --color-aux: #151821;
+    --color-button: rgb(236 72 153);
+
+    /* Fonts — replaces theme.extend.fontFamily */
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+    /* Custom cursor — replaces theme.extend.cursor */
+    --cursor-pinch: url('/assets/download.png') 16 16, auto;
+}
+
+@variant dark (&:where(.dark, .dark *));
 
